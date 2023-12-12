@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        // Define variables here
+        dockerImage = 'zahqh/devops:latest'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -18,7 +23,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build('zahqh/devops:latest')
+                    docker.build(dockerImage)
                 }
             }
         }
@@ -27,12 +32,10 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        docker.image('zahqh/devops:latest').push()
+                        docker.image(dockerImage).push()
                     }
                 }
             }
         }
     }
 }
-
-
