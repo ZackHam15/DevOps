@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven'
+    }
+
     environment {
         // Define variables here
         dockerImage = 'zahqh/devops:latest'
